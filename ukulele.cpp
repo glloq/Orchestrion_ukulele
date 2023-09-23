@@ -1,25 +1,24 @@
-#include "Ukulele.h"
+#include "ukulele.h"
+#include "settings.h"
 
-Ukulele::Ukulele() {
-  // Initialise each string (servo + electro-magnets)
-  for (int i = 0; i < STRING_COUNT; i++) {
-    _strings[i] = new UkuleleString(SERVO_PINS[i], MCP_ADDRESSES[i],OPEN_STRING_NOTE[i]);
+Ukulele:: Ukulele () {
+  //initialise chaque cordes (servo + electroaiamants)
+  for (int i = 0; i < 4; i++) {
+    this->_strings[i]= new UkuleleString(SERVO_PINS[i], MCP_ADDRESSES[i],OPEN_STRING_NOTE[i],NUM_MAGNET_PER_STRING[i],SERVO_CENTER_ANGLE[i]);
   }
-  // Initialise the servo for height/velocity/force plucking control
-  servoVelocity.attach(SERVO_VELOCITY_PIN);
-  servoVelocity.write(INIT_ANGLE_VELOCITY);
 }
 
 void Ukulele::playMidiNote(int midiNote, int velocity) {
-  int stringIndex = findString(midiNote);
-  if (stringIndex != -1) { // If the note can be played
-    setVelocity(velocity);
+  int stringIndex=-1;
+  stringIndex=findString(midiNote);
+
+  if (stringIndex != -1 ) {//si la note peut etre jouée
     _strings[stringIndex]->playNote(midiNote, true);
   }
 }
 
 void Ukulele::stopMidiNote(int midiNote) {
-  for (int i = 0; i < STRING_COUNT; i++) {
+  for (int i = 0; i < 4; i++) {
     if (_strings[i]->getCurrentMidiNote() == midiNote) {
       _strings[i]->playNote(midiNote, false);
       break;
@@ -27,16 +26,22 @@ void Ukulele::stopMidiNote(int midiNote) {
   }
 }
 
+
 int Ukulele::findString(int midiNote) {
-  for (int i = 0; i < STRING_COUNT; i++) {
-    if (_strings[i]->isPlayable(midiNote)){
-      return i;
+  for (int i = 0; i < 4; i++) {
+    if(this->_strings[i]->isPlayable(midiNote)){
+      return i;//renvoi la corde jouable
     }
   }
-  return -1; // Return -1 if no string can play the note
+  return -1;//renvoi -1 si pas de corde dispo 
 }
 
-void Ukulele::setVelocity(int velocity) {
-  int angle = map(velocity, 0, 127, SERVO_VELOCITY_MIN, SERVO_VELOCITY_MAX);
-  servoVelocity.write(angle);
+//verifie chaque cordes 
+void Ukulele::update() {
+  for(int i = 0; i < 4; i++) {
+    _strings[i]->update();
+  }
 }
+
+
+

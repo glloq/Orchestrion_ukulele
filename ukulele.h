@@ -1,25 +1,21 @@
 #ifndef UKULELE_H
 #define UKULELE_H
 
-#include "Arduino.h"
-#include "Servo.h"
-#include "Wire.h"
-#include "Adafruit_MCP23X17.h"
-#include "UkuleleString.h"
 #include "settings.h"
-
-#define STRING_COUNT 4
-
+#include "ukuleleString.h"
+#include "Servo.h"
+/***********************************************************************************************
+----------------------------      UKULELE system       ----------------------------------------
+************************************************************************************************/
 class Ukulele {
 public:
   Ukulele();
-  void playMidiNote(int midiNote, int velocity);// demande a chaque string si c'est jouable et assigne la note a la premiere corde 
-  void stopMidiNote(int midiNote);
+  void playMidiNote(int midiNote, int velocity); // note On
+  void stopMidiNote(int midiNote);// note off
+  void update (); // fonction pour verifier les temps d'activations des electroaimants pour limiter la surchauffe
 private:
-  int findString(int midiNote);
-  Servo servoVelocity;
-  UkuleleString* _strings[STRING_COUNT];
-  void setVelocity(int velocity);
+  int findString(int midiNote);// demande a chaque string si c'est jouable et assigne la note a la premiere corde dipo
+  UkuleleString* _strings[4];// tableaux des cordes 
 };
 
 #endif

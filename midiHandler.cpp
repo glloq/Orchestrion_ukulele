@@ -1,6 +1,6 @@
  #include "midiHandler.h"
 
-MidiHandler::MidiHandler(Ukulele& ukulele) : _ukulele(ukulele) {}
+MidiHandler::MidiHandler(Ukulele& ukulele) {}
 
 void MidiHandler::readMidi() {
   midiEventPacket_t midiEvent;
@@ -17,7 +17,9 @@ void MidiHandler::processMidiEvent(midiEventPacket_t midiEvent) {
   byte channel = midiEvent.byte1 & 0x0F;
   byte note = midiEvent.byte2;
   byte velocity = midiEvent.byte3;
-
+  
+  // gestion simple des massages midi
+  //ne fait que la gestion des messages noteOn et noteOff 
   if (messageType == 0x90 && velocity > 0) { // Note On
     _ukulele.playMidiNote(note, velocity);
   } else if (messageType == 0x80 || (messageType == 0x90 && velocity == 0)) { // Note Off
