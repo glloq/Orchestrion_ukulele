@@ -14,7 +14,7 @@ Le contrôleur MIDI permet de jouer des notes recues par le cable USB.
 - Lecture et execution des notes MIDI dans la plage jouable du Ukulele
 
 ## Schemas branchements
-![schema electronique](https://github.com/glloq/Orchestrion-Xylophone/blob/main/schemas.png?raw=true)
+![schema electronique](https://github.com/glloq/Orchestrion_ukulele/blob/main/schemas.png?raw=true)
 
 ## Matériel requis
 - Alimentation 5v 2A
