@@ -52,11 +52,11 @@ Vous pouvez modifier ces options avant de téléverser le code sur votre Arduino
 
 
 #### Preparations
-1. Ouvrez le fichier "initServo.ino" de ce dépôt
+1. Ouvrez le fichier "ukulele-servo-init.ino" de ce dépôt
 2. Sélectionnez le port série approprié et le type de carte dans le menu Outils de l'IDE Arduino.
 3. Téléversez le code sur votre Arduino.
-4. il faut rentrer l'angle du servo dans le moniteur serie et valider avec entré jusqu'a ce que le pick soit en contact avec la corde
-5. noter la valeur de l'angle et passer a la corde suivante en envoyant "ok"
+4. il faut rentrer l'angle du servo (entre 20 et 160) dans le moniteur serie et valider avec entré jusqu'a ce que le pick soit en contact avec la corde
+5. noter la valeur de l'angle et passer à la corde suivante en envoyant "ok"
 6. faire les meme manipulations que précedement avec les 3 autres servos 
 
 #### Installation
