@@ -13,10 +13,14 @@ Le contrôleur MIDI permet de jouer des notes recues par le cable USB.
 
 - Lecture et execution des notes MIDI dans la plage jouable du Ukulele
 
-## Schemas branchements
+## Installation materielle
+
+
+
+### Schemas branchements
 ![schema electronique](https://github.com/glloq/Orchestrion_ukulele/blob/main/schemas.png?raw=true)
 
-## Matériel requis
+### Matériel requis
 - Alimentation 5v 2A
 - un cable USB pour l'arduino
 - Arduino Leonardo(ou compatible) 
@@ -24,6 +28,17 @@ Le contrôleur MIDI permet de jouer des notes recues par le cable USB.
 - 4 servomoteurs pour le grattage des 4 cordes
 - 4 x 12 électroaimants; un pour chaque frettes avec alimentation + fusible adapté + driver (mofset par exemple) 
 - 4 MCP23017 : pour l'extension des pins de l'arduino
+
+
+
+## Installation logicielle
+
+#### Bibliothèques requises
+
+- [MidiUSB.H](https://github.com/arduino-libraries/MIDIUSB)
+- [Adafruit_MCP23X17.h](https://github.com/adafruit/Adafruit-MCP23017-Arduino-Library)
+- avr/interrupt.h
+- Arduino.h
 
 
 ## Options de configuration
@@ -34,21 +49,21 @@ Vous pouvez modifier ces options avant de téléverser le code sur votre Arduino
 -le nombre de frettes par cordes
 -le temps d'activation maximum de l'electroaimant en continu
 -l'angle "zero" du servo de grattage par corde : c'est la position du servo contre la corde
--l'angle de grattage 
+-l'angle de grattage
+-L'activation du debuggage via serial
 
 
+#### Preparations
+1. Ouvrez le fichier "initServo.ino" de ce dépôt
+2. Sélectionnez le port série approprié et le type de carte dans le menu Outils de l'IDE Arduino.
+3. Téléversez le code sur votre Arduino.
+4. il faut rentrer l'angle du servo dans le moniteur serie et valider avec entré jusqu'a ce que le pick soit en contact avec la corde
+5. noter la valeur de l'angle et passer a la corde suivante en envoyant "ok"
+6. faire les meme manipulations que précedement avec les 3 autres servos 
 
-## Bibliothèques requises
-
-- [MidiUSB.H](https://github.com/arduino-libraries/MIDIUSB)
-- [Adafruit_MCP23X17.h](https://github.com/adafruit/Adafruit-MCP23017-Arduino-Library)
-- avr/interrupt.h
-- Arduino.h
-- 
-## Installation
-
+#### Installation
 1. Clonez ou téléchargez ce dépôt.
-2. Ouvrez le fichier .ino dans l'IDE Arduino.
+2. Ouvrez le fichier ukulele.ino dans l'IDE Arduino.
 3. Installez la bibliothèque MIDIUSB et adafruit MCP23x17 si vous ne l'avez pas déjà fait.
 4. faites les modifications necessaire à votre montage dans settings.h
 5. Connectez votre Arduino Leonardo à votre ordinateur via un câble USB.
