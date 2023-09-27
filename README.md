@@ -44,11 +44,11 @@ Le contrôleur MIDI permet de jouer des notes recues par le cable USB.
 Le fichier `Settings.h` contient plusieurs options de configuration pour personnaliser le fonctionnement du contrôleur Arduino Ukulele MIDI. 
 Vous pouvez modifier ces options avant de téléverser le code sur votre Arduino:
 
--le nombre de frettes par cordes
--le temps d'activation maximum de l'electroaimant en continu
--l'angle "zero" du servo de grattage par corde : c'est la position du servo contre la corde
--l'angle de grattage
--L'activation du debuggage via serial
+- le nombre de frettes par cordes
+- le temps d'activation maximum de l'electroaimant en continu
+- l'angle "zero" du servo de grattage par corde : c'est la position du servo contre la corde
+- l'angle de grattage
+- L'activation du debuggage via serial
 
 
 #### Preparations
