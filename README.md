@@ -14,6 +14,10 @@ Le contrôleur MIDI permet de jouer des notes recues par le cable USB.
 
 ## Installation materielle
 
+#### impression 3D
+Ce projet utilise l'impression 3D FMD afin de faire les differentes pieces du projet.
+Une fois les differentes parties validé, toutes les pieces seront regroupée dans le dossier "STL".
+certaines pieces sont relativement grosse mais elles devrais renter sur un plateau de 30x20cm pour la piece la plus imposante.
 
 ### Schemas branchements
 ![schema electronique](https://github.com/glloq/Orchestrion_ukulele/blob/main/schemas.png?raw=true)
