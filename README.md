@@ -1,4 +1,3 @@
-# Orchestrion_ukulele
 
 --- WORK IN PROGRESS ---
 
@@ -14,7 +13,6 @@ Le contrôleur MIDI permet de jouer des notes recues par le cable USB.
 - Lecture et execution des notes MIDI dans la plage jouable du Ukulele
 
 ## Installation materielle
-
 
 
 ### Schemas branchements
