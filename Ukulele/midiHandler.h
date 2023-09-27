@@ -12,7 +12,7 @@ class MidiHandler {
     void processMidiEvent(midiEventPacket_t midiEvent);
 
   public:
-    MidiHandler(Ukulele& ukulele);
+    MidiHandler(Ukulele &ukulele);
     void readMidi();
 };
 

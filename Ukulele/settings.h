@@ -25,6 +25,6 @@ constexpr int TIME_WAIT_DESACTIVATE =200;//attend un peut apres reception de not
 
 constexpr int OPEN_STRING_NOTE[4]= {67, 60, 64, 69}; //base accordage ukulele (numero midi a vide pour les 4 cordes)
 constexpr int NUM_MAGNET_PER_STRING[4]= {12,12,12,12}; //nombre d'electroaimants utilisé par corde
-constexpr int SERVO_CENTER_ANGLE[4]= {90,90,90,90}; //angle central des servos grattage
+constexpr int SERVO_CENTER_ANGLE[4]= {115,83,90,86}; //angle central des servos grattage
 
 #endif

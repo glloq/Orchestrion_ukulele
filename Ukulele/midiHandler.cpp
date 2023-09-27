@@ -1,6 +1,10 @@
  #include "midiHandler.h"
 
-MidiHandler::MidiHandler(Ukulele& ukulele) {}
+MidiHandler::MidiHandler(Ukulele &ukulele) : _ukulele(ukulele) {
+   if (DEBUG) {
+        Serial.println("midiHandler--creation");
+    } 
+}
 
 void MidiHandler::readMidi() {
   midiEventPacket_t midiEvent;

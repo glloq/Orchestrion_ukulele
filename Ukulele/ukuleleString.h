@@ -5,7 +5,6 @@
 #include "Servo.h"
 #include "Wire.h"
 #include "Adafruit_MCP23X17.h"
-#include "Note.h"
 #include "settings.h"
 /***********************************************************************************************
 ----------------------------  STRING  ----------------------------------------
@@ -19,15 +18,18 @@ public:
     bool isPlayable(int MidiNote);    //fct qui dit si la corde joue une note actuellement
 
 private:
+    Adafruit_MCP23X17 mcp;            // carte mcp
     Servo servo;                       // servo grattage de la corde
-    Adafruit_MCP23X17* mcp;            // carte mcp
-    Note* notes[12];                   // tableau des nottes/frettes/electroaimants
     bool playing;                      // stoque si une note est en cours sur la corde
     int angleZero;                     // angle servo contre la corde
     bool servoMovingToA;               //
     int currentMidiNote;               // note en cours 
     int baseMidiNote;                  // note corde a vide 
     int numOfNotes;                    //  nombre de notes/frettes/electroaimants sur la corde
+
+    long extinctionTime[12]; // tableau pour stoquer le temps d'extinction de chaque note
+    bool active[12]; // tableau pour stoquer si la note est active
+
     bool isActive();                   // renvoi la valeur de playing
     void activateFret(int numMcp);     // active la frette
     void desactivateFret(int numMcp);  // desactive la frette en cours
