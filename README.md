@@ -41,8 +41,9 @@ le design choisi obligera de faire des percages pour les tiges tranversant le ma
 - 4 x 12 électroaimants; un pour chaque frettes avec alimentation + fusible adapté + driver (mofset par exemple)
 > [!WARNING]
 > eviter des solenoides avec un trop gros amperage pour limiter la chauffe.
-> > [!TIP]
-> des solenoides de 7N foncrtionent sur la plupart des frettes.
+
+> [!TIP]
+> des solenoides de 7N fonctionent sur la plupart des frettes mais il faudra probablement prevoir un peut plus elevé pour la corde la plus epaisse sur la premiere frette !
 
 
 
