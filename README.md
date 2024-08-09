@@ -1,21 +1,21 @@
 > [!NOTE]
-> The code work but the assembly need more work.
+> le code fonctionne mais je doit refaire l'assemblage !
 
 
 # Orchestrion-Ukulele
 
 Ce projet utilise un Arduino Leonardo (ou micro) pour contrôler un ukulele acoustique à l'aide de signaux MIDI. 
 L'Ukulele est équipé d'électroaimants pour actionner les frettes et d'un servomoteur pour actionner le "grattage" sur chaque corde.
+l'objectif est d'avoir un instrument fonctionnel (qui sonne correctement) qui est pas trop moche et qui est facilement maintenable !
 
 Le contrôleur MIDI permet de jouer des notes recues par le cable USB.
+> [!TIP]
+> ca devrais etre adaptable pour fonctionner sans fil aussi.
 
 ## Fonctionnalités
 
 - Lecture et execution des notes MIDI dans la plage jouable du Ukulele
 
-## Installation materielle
-
-l'objectif est d'avoir un instrument fonctionnel (qui sonne correctement) qui est pas trop moche et qui est facilement maintenable !
 
 #### schemas de principe 
 ![schema principe](https://raw.githubusercontent.com/glloq/Orchestrion_ukulele/main/img/schemas%20principe.png?raw=true)
@@ -37,8 +37,12 @@ le design choisi obligera de faire des percages pour les tiges tranversant le ma
 - Arduino Leonardo(ou compatible) 
 - Ukulele 12 frettes
 - 4 servomoteurs pour le grattage des 4 cordes
-- 4 x 12 électroaimants; un pour chaque frettes avec alimentation + fusible adapté + driver (mofset par exemple) 
 - 4 MCP23017 : pour l'extension des pins de l'arduino
+- 4 x 12 électroaimants; un pour chaque frettes avec alimentation + fusible adapté + driver (mofset par exemple)
+> [!WARNING]
+> eviter des solenoides avec un trop gros amperage pour limiter la chauffe.
+> > [!TIP]
+> des solenoides de 7N foncrtionent sur la plupart des frettes.
 
 
 
