@@ -16,12 +16,16 @@ Le contrôleur MIDI permet de jouer des notes recues par le cable USB.
 pour des raisons de rapidité, j'ai choisi d'utiliser des solenoides pour faire les accords sur chaque frette.
 le design choisi obligera de faire des percages pour les tiges tranversant le manche, on en profitera pour retirer le manche et recoller la parties avec les frettes sur une planche => il faudra donc recuperer et fixer le corps et la tete du manche proprement !!
 
+### Systeme de doigts
+l'idée est d'utiliser des tiges en metal qui serons actionné par les solenoides, le dessous des doigts sera couvert d'une mousse ou d'un tissu pour limiter le bruits
+<img src="https://raw.githubusercontent.com/glloq/Orchestrion_ukulele/main/img/doigts.png" alt="Your image title" width=40% height=40%/>
 
-### Choix du systeme de grattage
+### Systeme de grattage
 
-On a 2 choix possible pour la partie grattage, on peut utiliser deux solenoides l'un après l'autre ou bien un simple servomoteur
-![schema grattage](https://github.com/glloq/Orchestrion_ukulele/blob/main/img/grattage.png?raw=true)
-il faut garder un design propre, il faudra donc cacher les mecanismes de grattage derriere le corps du ukulele.
+On a 2 choix possible pour la partie grattage, on peut utiliser deux solenoides l'un après l'autre ou bien un simple servomoteur, pour des raions de simplicité nous tiliserons un servomoteur.
+<img src="https://github.com/glloq/Orchestrion_ukulele/blob/main/img/grattage%20partsd.png" alt="Your image title" width=40% height=40%/>
+
+il faut garder un design propre, il faudra donc cacher les mecanismes de grattage derriere le corps du ukulele ou une planche de bois sur les cotés.
 
 ### Schemas branchements
 ![schema electronique](https://github.com/glloq/Orchestrion_ukulele/blob/main/schemas.png?raw=true)
