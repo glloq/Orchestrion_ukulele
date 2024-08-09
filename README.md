@@ -14,10 +14,18 @@ Le contrôleur MIDI permet de jouer des notes recues par le cable USB.
 
 ## Installation materielle
 
-#### impression 3D
-Ce projet utilise l'impression 3D FMD afin de faire les differentes pieces du projet.
-Une fois les differentes parties validé, toutes les pieces seront regroupée dans le dossier "STL".
-certaines pieces sont relativement grosse mais elles devrais renter sur un plateau de 30x20cm pour la piece la plus imposante.
+l'objectif est d'avoir un instrument fonctionnel (qui sonne correctement) qui est pas trop moche et qui est facilement maintenable !
+
+#### schemas de principe 
+![schema principe](https://raw.githubusercontent.com/glloq/Orchestrion_ukulele/main/img/schemas%20principe.png?raw=true)
+pour des raisons de rapidité, j'ai choisi d'utiliser des solenoides pour faire les accords sur chaque frette.
+le design choisi obligera de faire des percages pour les tiges tranversant le manche, on en profitera pour retirer le manche et recoller la parties avec les frettes sur une planche => il faudra donc recuperer et fixer la tete du manche proprement !!
+
+
+### Choix du systeme de grattage
+
+![schema grattage](https://github.com/glloq/Orchestrion_ukulele/blob/main/img/grattage.png?raw=true)
+
 
 ### Schemas branchements
 ![schema electronique](https://github.com/glloq/Orchestrion_ukulele/blob/main/schemas.png?raw=true)
@@ -72,9 +80,6 @@ Vous pouvez modifier ces options avant de téléverser le code sur votre Arduino
 6. Sélectionnez le port série approprié et le type de carte dans le menu Outils de l'IDE Arduino.
 7. Téléversez le code sur votre Arduino Leonardo.
 8. Connectez votre Arduino à un hôte MIDI et profitez de votre ukulele contrôlé par MIDI !
-
-## patreon 
-[lien pour me soutenir](https://patreon.com/user?u=2656559&utm_medium=clipboard_copy&utm_source=copyLink&utm_campaign=creatorshare_creator&utm_content=join_link) 
 
 ## Licence
 
