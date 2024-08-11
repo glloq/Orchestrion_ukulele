@@ -12,7 +12,7 @@ Le contrôleur MIDI permet de jouer des notes recues par le cable USB.
 > ca devrais etre adaptable pour fonctionner sans fil aussi.
 
 #### schemas de principe 
-![schema principe](https://raw.githubusercontent.com/glloq/Orchestrion_ukulele/main/img/schemas%20principe.png?raw=true)
+![schema principe](https://raw.githubusercontent.com/glloq/Orchestrion_ukulele/main/img/schemas%20principev2.png?raw=true)
 pour des raisons de rapidité, j'ai choisi d'utiliser des solenoides pour faire les accords sur chaque frette.
 le design choisi obligera de faire des percages pour les tiges tranversant le manche, on en profitera pour retirer le manche et recoller la parties avec les frettes sur une planche => il faudra donc recuperer et fixer le corps et la tete du manche proprement !!
 
