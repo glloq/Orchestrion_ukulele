@@ -17,7 +17,7 @@ pour des raisons de rapidité, j'ai choisi d'utiliser des solenoides pour faire 
 le design choisi obligera de faire des percages pour les tiges tranversant le manche, on en profitera pour retirer le manche et recoller la parties avec les frettes sur une planche => il faudra donc recuperer et fixer le corps et la tete du manche proprement !!
 
 ### Systeme de doigts
-l'idée est d'utiliser des tiges en metal qui serons actionné par les solenoides, le dessous des doigts sera couvert d'une mousse ou d'un tissu pour limiter le bruits
+l'idée est d'utiliser des tiges en metal qui serons actionné par les solenoides, le dessous des doigts sera couvert d'une mousse ou d'un tissu pour limiter le bruits  
 <img src="https://raw.githubusercontent.com/glloq/Orchestrion_ukulele/main/img/doigts.png" alt="Your image title" width=40% height=40%/>
 
 ### Systeme de grattage
