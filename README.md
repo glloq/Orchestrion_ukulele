@@ -34,7 +34,7 @@ On a 2 choix possible pour la partie grattage, on peut utiliser deux solenoides 
 il faut garder un design propre, il faudra donc cacher les mecanismes de grattage derriere le corps du ukulele ou une planche de bois sur les cotés.
 
 ### Schemas branchements
-![schema electronique](https://github.com/glloq/Orchestrion_ukulele/blob/main/schemas.png?raw=true)
+![schema electronique](https://github.com/glloq/Orchestrion_ukulele/blob/main/img/schemas.png?raw=true)
 
 ### Matériel requis
 - Alimentation 5v 2A
