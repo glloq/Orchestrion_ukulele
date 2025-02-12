@@ -1,42 +1,49 @@
-#ifndef UkuleleString_h
-#define UkuleleString_h
+#ifndef UKULELESTRING_H
+#define UKULELESTRING_H
 
 #include "Arduino.h"
 #include "Servo.h"
 #include "Wire.h"
-#include "Adafruit_MCP23X17.h"
 #include "settings.h"
-/***********************************************************************************************
-----------------------------  STRING  ----------------------------------------
-************************************************************************************************/
+#include "mcpDevices.h"  // Pour accéder aux mcpDevices globaux
+
 class UkuleleString {
 public:
-    UkuleleString(int servoPin, uint8_t mcpAddress, int baseMidiNote, int numOfNotes, int angle);
+    // Constructeur : reçoit la broche du servo, la note à vide, le nombre de frettes,
+    // l'angle central et le tableau de mapping des frettes
+    UkuleleString(int servoPin, int baseMidiNote, int numFrets, int angle, const FretMapping* fretMapping);
+    
+    // Joue ou arrête une note (note = MIDI Note)
     void playNote(int note, bool isNoteOn);
-    void update();                    //fct verif temps max actif
-    int getCurrentMidiNote();         //renvoi la note midi en cours
-    bool isPlayable(int MidiNote);    //fct qui dit si la corde joue une note actuellement
-
+    
+    // Mise à jour (désactivation automatique des solénoïdes après le délai max)
+    void update();
+    
+    // Retourne la note MIDI actuellement jouée
+    int getCurrentMidiNote();
+    
+    // Vérifie si la note MIDI peut être jouée sur cette corde
+    bool isPlayable(int midiNote);
+    
 private:
-    Adafruit_MCP23X17 mcp;            // carte mcp
-    Servo servo;                       // servo grattage de la corde
-    bool playing;                      // stoque si une note est en cours sur la corde
-    int angleZero;                     // angle servo contre la corde
-    bool servoMovingToA;               //
-    int currentMidiNote;               // note en cours 
-    int baseMidiNote;                  // note corde a vide 
-    int numOfNotes;                    //  nombre de notes/frettes/electroaimants sur la corde
+    Servo servo;
+    bool playing;
+    int angleZero;
+    bool servoMovingToA;
+    int currentMidiNote;
+    int baseMidiNote;
+    int numFrets;
+    const FretMapping* fretMapping; // Tableau de mapping pour cette corde
 
-    long extinctionTime[12]; // tableau pour stoquer le temps d'extinction de chaque note
-    bool active[12]; // tableau pour stoquer si la note est active
+    long extinctionTime[9]; // Capacité maximale pour 10 frettes
+    bool active[9];
 
-    bool isActive();                   // renvoi la valeur de playing
-    void activateFret(int numMcp);     // active la frette
-    void desactivateFret(int numMcp);  // desactive la frette en cours
-    void pluck();                      // gratte la corde
+    void activateFret(int fretIndex);
+    void desactivateFret(int fretIndex);
+    void pluck();
     void mute();
-    void servoGoToA();                 // deplacement de A ver B
-    void servoGoToB();                 // deplacement de B vers A
+    void servoGoToA();
+    void servoGoToB();
 };
 
 #endif

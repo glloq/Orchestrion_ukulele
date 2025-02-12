@@ -1,156 +1,122 @@
 #include "ukuleleString.h"
-#include "settings.h"
+#include "Arduino.h"
+#include "mcpDevices.h"
 
-// ********************************************************************************************************************************
-// Constructeur de la corde, créer les object pour chaque notes en fonction de la note de base recue + initiatlise le servomoteur grattage en position de depart
-UkuleleString::UkuleleString(int servoPin,  uint8_t mcpAddress, int baseMidiNote, int numOfNotes, int angle) {
-   if (DEBUG) {
-        Serial.println("ukuleleString--creation objet UkuleleString");
-    } 
-  
-  if (DEBUG) {
-        Serial.println("ukuleleString--mcp init start");
-    } 
- 
-  // initialisation du mcp pour la corde  
-  Wire.begin(); // Initialize I2C communication
-  mcp= Adafruit_MCP23X17();
-
-    if (!mcp.begin_I2C(mcpAddress)) {
-        Serial.println("MCP init failed");
-        while(1);
-    }   
+UkuleleString::UkuleleString(int servoPin, int baseMidiNote, int numFrets, int angle, const FretMapping* fretMapping)
+    : baseMidiNote(baseMidiNote), numFrets(numFrets), angleZero(angle), fretMapping(fretMapping)
+{
     if (DEBUG) {
-        Serial.println("ukuleleString--mcp init done");
+        Serial.println("ukuleleString--creation objet UkuleleString");
     }
-  // declaration des varaibles de l'objet
-    this->playing = false;
-    this->servoMovingToA = true;
-    this->baseMidiNote = baseMidiNote;
-    this->numOfNotes = numOfNotes;
-    this->angleZero = angle;
-    this->currentMidiNote = -1;  // no note is playing
-    //init des electroaiamnt pour chaque note /accords sur la corde 
-    for(int i = 0; i < numOfNotes; i++) {
-        extinctionTime[i] = 0;
+    
+    // Initialisation des sorties pour chaque frette
+    for (int i = 0; i < numFrets; i++) {
+        uint8_t mcpIdx = fretMapping[i].mcpIndex;
+        uint8_t pin = fretMapping[i].pin;
+        mcpDevices[mcpIdx].pinMode(pin, OUTPUT);
         active[i] = false;
-        mcp.pinMode(i, OUTPUT);
+        extinctionTime[i] = 0;
     }
-    //initialisation du servo grattage
-  if (DEBUG) {
-        Serial.println("ukuleleString--servo init start");
-    } 
-  this->servo.attach(servoPin);  // attaches the servo on pin servoPin
-  //met le pin du servo de grattage a la positon init 
-  this->servo.write(angleZero-ANGLE_GRATTAGE);
-  delay(1000);
-  this->servo.write(angleZero);
-     if (DEBUG) {
-        Serial.println("ukuleleString--servo init done");
-    } 
+    
+    playing = false;
+    servoMovingToA = true;
+    currentMidiNote = -1;
+    
+    // Initialisation du servo
+    servo.attach(servoPin);
+    servo.write(angleZero - ANGLE_GRATTAGE);
+    delay(1000);
+    servo.write(angleZero);
 }
 
-
-// ********************************************************************************************************************************
-// joue la note envoyé par ukulele.h, active et desactive l'electroaimant si message note on/off pour la note en cours
 void UkuleleString::playNote(int note, bool isNoteOn) {
-    int numMcp = note - this->baseMidiNote;    //note On
+    int fretIndex = note - baseMidiNote; // 0 correspond à la corde à vide
     if (DEBUG) {
         Serial.print("ukuleleString--Note :");
-        Serial.print(note);       
-        Serial.print(" - ");        
-       
-        if(isNoteOn){
-          Serial.println("on");
-          }else{
-          Serial.println("off");
-        }
+        Serial.print(note);
+        Serial.print(" - ");
+        Serial.println(isNoteOn ? "on" : "off");
     }
-    if(isNoteOn) {
-      this->currentMidiNote = note;
-      if (numMcp==0){// le cas ou c'est la premiere note de la corde pas d'electroaiamnt a activer
-        pluck();
-      }else{// sinon on active la frette et on gratte 
-        activateFret(numMcp-1);
-        pluck();
-      }
-      // Note Off 
+    if (isNoteOn) {
+        currentMidiNote = note;
+        if (fretIndex == 0) { // open string
+            // Enregistrer que la corde est en cours d'utilisation même en open string
+            playing = true;  
+            pluck();
+        } else {
+            // Pour une note jouée sur une frette, active le solénoïde correspondant
+            activateFret(fretIndex - 1);
+            delay(20);
+            pluck();
+        }
     } else {
-        mute();// utilise le servo grattage pour arreter le son de la corde 
-        if(numMcp!=this->baseMidiNote){// si c'est pas la premiere case a vide 
-          desactivateFret(numMcp-1);
-        } 
-        this->currentMidiNote = -1;
+        mute();
+        if (fretIndex != 0) {
+            desactivateFret(fretIndex - 1);
+        }
+        // Réinitialisation de l'état de la corde
+        playing = false;
+        currentMidiNote = -1;
     }
 }
 
-
-// ********************************************************************************************************************************
-// permet de mettre a jours le temps max actif pour l'elecroaimant (permet d'eviter des surchauffes et augmente la durée de vie)
 void UkuleleString::update() {
-//si la corde est active
-  if(playing) {
-        for(int i = 0; i < numOfNotes; i++) {
-            if(active[i] && millis() > extinctionTime[i]) {
-                desactivateFret(i); 
+    if (playing) {
+        for (int i = 0; i < numFrets; i++) {
+            if (active[i] && millis() > extinctionTime[i]) {
+                desactivateFret(i);
             }
         }
     }
 }
 
-
-  // ********************************************************************************************************************************
-  //verifie si la note est jouable et si la corde est pas deja en cours d'utilisation
-  bool UkuleleString::isPlayable(int MidiNote) {
-    if (this->playing==false){// si la corde ne joue pas deja une note
-      if((MidiNote>=this->baseMidiNote )&& (MidiNote<= this->baseMidiNote+this->numOfNotes )){// si la note peut etre jouée 
-        return 1;
-    }else{
-      return 0;}
-  }else{return 0;}
-}
-
-
-  // ********************************************************************************************************************************
-  //revoi la note en cours active tant qu'on ne recoit pas la note off
 int UkuleleString::getCurrentMidiNote() {
     return currentMidiNote;
 }
-  // ********************************************************************************************************************************
-  //active la note / accord sur la frette avec l'electroaiamant
-void UkuleleString::activateFret(int numMcp) {
-    mcp.digitalWrite(numMcp, HIGH);
-    active[numMcp] = true;
-    extinctionTime[numMcp] = millis() + MAX_ACTIVATION_TIME;
+
+bool UkuleleString::isPlayable(int midiNote) {
+    if (!playing) {
+        if (midiNote >= baseMidiNote && midiNote <= baseMidiNote + numFrets) {
+            return true;
+        }
+    }
+    return false;
+}
+
+void UkuleleString::activateFret(int fretIndex) {
+    uint8_t mcpIdx = fretMapping[fretIndex].mcpIndex;
+    uint8_t pin = fretMapping[fretIndex].pin;
+    mcpDevices[mcpIdx].digitalWrite(pin, HIGH);
+    active[fretIndex] = true;
+    extinctionTime[fretIndex] = millis() + MAX_ACTIVATION_TIME;
     playing = true;
 }
-  // ********************************************************************************************************************************
-  //desactive la note / accord sur la frette avec l'electroaiamant
-void UkuleleString::desactivateFret(int numMcp) {
-  //verifie si c'est bien la note en cours sur la corde ?
-    mcp.digitalWrite(numMcp, LOW);
-    active[numMcp] = false;
+
+void UkuleleString::desactivateFret(int fretIndex) {
+    uint8_t mcpIdx = fretMapping[fretIndex].mcpIndex;
+    uint8_t pin = fretMapping[fretIndex].pin;
+    mcpDevices[mcpIdx].digitalWrite(pin, LOW);
+    active[fretIndex] = false;
     playing = false;
 }
-  // ********************************************************************************************************************************
-//le mouvement du servo moteur pour le grattage de la corde, ne va que de haut en bas en alternant
+
 void UkuleleString::pluck() {
-    if (this->servoMovingToA) {
-        this->servoGoToA();
+    if (servoMovingToA) {
+        servoGoToA();
     } else {
-        this->servoGoToB();
+        servoGoToB();
     }
-    this->servoMovingToA = !this->servoMovingToA;
+    servoMovingToA = !servoMovingToA;
 }
 
 void UkuleleString::servoGoToA() {
-    this->servo.write(angleZero+ANGLE_GRATTAGE);
+    servo.write(angleZero + ANGLE_GRATTAGE);
 }
 
 void UkuleleString::servoGoToB() {
-    this->servo.write(angleZero-ANGLE_GRATTAGE);
+    servo.write(angleZero - ANGLE_GRATTAGE);
 }
 
 void UkuleleString::mute() {
-    this->servo.write(angleZero);
+    servo.write(angleZero);
 }

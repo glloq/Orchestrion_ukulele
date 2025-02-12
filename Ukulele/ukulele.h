@@ -4,19 +4,17 @@
 #include "settings.h"
 #include "ukuleleString.h"
 #include "Servo.h"
-/***********************************************************************************************
-----------------------------      UKULELE system       ----------------------------------------
-************************************************************************************************/
+
 class Ukulele {
 public:
-  Ukulele();
-  void playMidiNote(int midiNote, int velocity); // note On
-  void stopMidiNote(int midiNote);// note off
-  void update (); // fonction pour verifier les temps d'activations des electroaimants pour limiter la surchauffe
-  void initMusic(); // fonction pour faire une musique a l'alumage => test des cordes, premiere frette + servo 
+    Ukulele();
+    void playMidiNote(int midiNote, int velocity); // note On
+    void stopMidiNote(int midiNote);               // note Off
+    void update();                                 // mise à jour des états (désactivation automatique)
+    void initMusic();                              // test de jeu sur chaque corde
 private:
-  int findString(int midiNote);// demande a chaque string si c'est jouable et assigne la note a la premiere corde dipo
-  UkuleleString* _strings[4];// tableaux des cordes 
+    int findString(int midiNote);                  // retourne l'indice de la corde jouable
+    UkuleleString* _strings[4];                    // tableau des cordes
 };
 
 #endif
