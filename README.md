@@ -20,6 +20,10 @@ le design choisi obligera de faire des percages pour les tiges tranversant le ma
 l'idée est d'utiliser des tiges en metal qui serons actionné par les solenoides, le dessous des doigts sera couvert d'une mousse ou d'un tissu pour limiter le bruits  
 <img src="https://raw.githubusercontent.com/glloq/Orchestrion_ukulele/main/img/doigts.png" alt="Your image title" width=40% height=40%/>
 
+> [!WARNING]
+> Le code actuel est fait pour 9 solenoides sur la premiere et seconde cordes, 8 sur la troisieme et 6 sur la quatrieme
+> il est possible de changer cet arrangement en adaptant le fichier settings.h a votre cas d'utilisation
+
 ### Systeme de grattage
 
 On a 2 choix possible pour la partie grattage, on peut utiliser deux solenoides l'un après l'autre ou bien un simple servomoteur, pour des raions de simplicité nous tiliserons un servomoteur.
