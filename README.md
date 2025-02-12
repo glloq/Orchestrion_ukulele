@@ -41,9 +41,11 @@ il faut garder un design propre, il faudra donc cacher les mecanismes de grattag
 - un cable USB pour l'arduino
 - Arduino Leonardo(ou compatible) 
 - Ukulele 12 frettes
+- le suppport en bois ou autre 
 - 4 servomoteurs pour le grattage des 4 cordes
-- 4 MCP23017 : pour l'extension des pins de l'arduino
-- 4 x 12 électroaimants; un pour chaque frettes avec alimentation + fusible adapté + driver (mofset par exemple)
+- 2 MCP23017 : pour l'extension des pins de l'arduino
+- 32 électroaimants; avec alimentation + fusible adapté + driver (mofset par exemple) + diode de roue libre pour chaque solenoides
+  
 > [!WARNING]
 > eviter des solenoides avec un trop gros amperage pour limiter la chauffe.
 
@@ -58,7 +60,6 @@ il faut garder un design propre, il faudra donc cacher les mecanismes de grattag
 
 - [MidiUSB.H](https://github.com/arduino-libraries/MIDIUSB)
 - [Adafruit_MCP23X17.h](https://github.com/adafruit/Adafruit-MCP23017-Arduino-Library)
-- avr/interrupt.h
 - Arduino.h
 
 
@@ -67,7 +68,7 @@ il faut garder un design propre, il faudra donc cacher les mecanismes de grattag
 Le fichier `Settings.h` contient plusieurs options de configuration pour personnaliser le fonctionnement du contrôleur Arduino Ukulele MIDI. 
 Vous pouvez modifier ces options avant de téléverser le code sur votre Arduino:
 
-- le nombre de frettes par cordes
+- le nombre de frettes par cordes et le mcp utilisé
 - le temps d'activation maximum de l'electroaimant en continu
 - l'angle "zero" du servo de grattage par corde : c'est la position du servo contre la corde
 - l'angle de grattage
