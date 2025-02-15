@@ -8,19 +8,20 @@ L'Ukulele est équipé d'électroaimants pour actionner les frettes et d'un serv
 l'objectif est d'avoir un instrument fonctionnel (qui sonne correctement) qui est pas trop moche et qui est facilement maintenable !
 
 Le contrôleur MIDI permet de jouer des notes recues par le cable USB.
+
 > [!TIP]
-> ca devrais etre adaptable pour fonctionner sans fil aussi.
+> le code est adaptable pour fonctionner avec le wifi, bluetooth ou cable midi, il suffit d'adapter la partie midiHandler a votre besoin. 
 
 #### schemas de principe 
 ![schema principe](https://raw.githubusercontent.com/glloq/Orchestrion_ukulele/main/img/schemas%20principev2.png?raw=true)
-pour des raisons de rapidité, j'ai choisi d'utiliser des solenoides pour faire les accords sur chaque frette.
+pour des raisons de reactivité, j'ai choisi d'utiliser des solenoides pour faire les accords sur chaque frette.
 le design choisi obligera de faire des percages pour les tiges tranversant le manche, on en profitera pour retirer le manche et recoller la parties avec les frettes sur une planche => il faudra donc recuperer et fixer le corps et la tete du manche proprement !!
 
 ### Systeme de doigts
 l'idée est d'utiliser des tiges en metal qui serons actionné par les solenoides, le dessous des doigts sera couvert d'une mousse ou d'un tissu pour limiter le bruits  
 <img src="https://raw.githubusercontent.com/glloq/Orchestrion_ukulele/main/img/doigts.png" alt="Your image title" width=40% height=40%/>
 > [!TIP]
-> il est possible d'utiliser des serre cables pour rendre le systeme plus solide 
+> il est possible d'utiliser des serre cables pour rendre le systeme de doigts plus solide 
 
 > [!WARNING]
 > Le code actuel est fait pour 9 solenoides sur la premiere et seconde cordes, 8 sur la troisieme et 6 sur la quatrieme
@@ -28,7 +29,7 @@ l'idée est d'utiliser des tiges en metal qui serons actionné par les solenoide
 
 ### Systeme de grattage
 
-On a 2 choix possible pour la partie grattage, on peut utiliser deux solenoides l'un après l'autre ou bien un simple servomoteur, pour des raions de simplicité nous tiliserons un servomoteur.
+Pour des raions de simplicité nous tiliserons un servomoteur par corde pour alterner le grattage de la corde 
 <img src="https://github.com/glloq/Orchestrion_ukulele/blob/main/img/grattage%20partsd.png" alt="Your image title" width=40% height=40%/>
 
 il faut garder un design propre, il faudra donc cacher les mecanismes de grattage derriere le corps du ukulele ou une planche de bois sur les cotés.
